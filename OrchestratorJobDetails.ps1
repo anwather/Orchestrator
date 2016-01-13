@@ -13,6 +13,13 @@ DISCLAIMER
         suppliers from and against any claims or lawsuits, including attorneys’ fees, that arise 
         or result from the use or distribution of the Sample Code.
 
+.SYNOPSIS
+
+Output objects based on currently executing Runbooks
+.DESCRIPTION
+
+This script will output an object for each currently executing runbook including values such as job ID, percentage complete, runbook name, current activity.
+
 #>
 
 # Variables
