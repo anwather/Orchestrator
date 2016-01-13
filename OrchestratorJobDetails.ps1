@@ -80,7 +80,7 @@ WHERE RAI.RunbookInstanceId = '$instanceID'
         
         $connection.Close()
         $instance.Add("ActivityName",($table | Sort-Object -Property SequenceNumber -Descending | Select -First 1 -ExpandProperty Name))
-        $instance.Add("PercentComplete",(($table | Sort-Object -Property SequenceNumber -Descending | Select -First 1 -ExpandProperty SequenceNumber)/$instance.ActivityCount)*100)
+        $instance.Add("PercentComplete","$((($table | Sort-Object -Property SequenceNumber -Descending | Select -First 1 -ExpandProperty SequenceNumber)/$instance.ActivityCount)*100) %")
         $obj = New-Object -TypeName PSObject -Property $instance
         $jobArray += $obj
         $obj = $null
