@@ -79,6 +79,9 @@ WHERE RAI.RunbookInstanceId = '$instanceID'
         $table.Load($activityresult)
         
         $connection.Close()
+        $currentSequenceNumber = $table | Where {$_.Status -notmatch "^[sf]"} | Sort-Object -Property SequenceNumber -Descending | Select -First 1 -ExpandProperty SequenceNumber
+        $lastStatus = $table | Where {$_.SequenceNumber -match ($currentSequenceNumber-1) } | Select -ExpandProperty Status
+        $instance.Add("LastActivityStatus",$lastStatus)
         $instance.Add("ActivityName",($table | Sort-Object -Property SequenceNumber -Descending | Select -First 1 -ExpandProperty Name))
         $instance.Add("PercentComplete","$((($table | Sort-Object -Property SequenceNumber -Descending | Select -First 1 -ExpandProperty SequenceNumber)/$instance.ActivityCount)*100) %")
         $obj = New-Object -TypeName PSObject -Property $instance
